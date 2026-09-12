@@ -1,4 +1,4 @@
-module github.com/Kilat-Pet-Delivery/lib-common
+module github.com/niaga-labs/niaga-labs-pet-lib-common
 
 go 1.24.0
 

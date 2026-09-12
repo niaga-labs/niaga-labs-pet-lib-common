@@ -32,3 +32,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   needing `-race`, which cannot run on the Windows dev laptop), writer reuse per
   topic, and the `AllowAutoTopicCreation` setting.
 - `CHANGELOG.md`: this file. Partially advances KPD-52.
+
+### Changed
+
+- Go module path is now `github.com/niaga-labs/niaga-labs-pet-lib-common` (was
+  `github.com/Kilat-Pet-Delivery/lib-common`). Anything that imports this module must use the new path. The repos moved to the niaga-labs org on
+  2026-09-12 (HQ-40). The `replace => ../lib-*` targets are unchanged: local folders keep their
+  short names. (HQ-41)
+
