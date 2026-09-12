@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/Kilat-Pet-Delivery/lib-common/auth"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
+	"github.com/niaga-labs/niaga-labs-pet-lib-common/auth"
 )
 
 const (

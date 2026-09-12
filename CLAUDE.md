@@ -1,7 +1,7 @@
 # Kilat Pet Delivery - lib-common
 
 Shared Go building blocks every Kilat service imports: JWT auth, config loading, the Postgres connector and migration runner, the Kafka producer and consumer, structured logging, HTTP middleware, health checks, resilience helpers and the response envelope.
-Jira project **KPD** - GitHub `Kilat-Pet-Delivery/lib-common` - stack **Go 1.24 - library**. Global rules live in `~/.claude/`;
+Jira project **KPD** - GitHub `niaga-labs/niaga-labs-pet-lib-common` - stack **Go 1.24 - library**. Global rules live in `~/.claude/`;
 this file only adds what is specific here.
 
 ## Orient here first

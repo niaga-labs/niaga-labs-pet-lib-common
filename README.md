@@ -2,7 +2,7 @@
 
 Shared Go library for Kilat Pet Runner microservices platform.
 
-**Organization:** `github.com/Kilat-Pet-Delivery`
+**Organization:** `github.com/niaga-labs`
 
 ## What it Provides
 
@@ -20,7 +20,7 @@ Shared Go library for Kilat Pet Runner microservices platform.
 ## Installation
 
 ```bash
-go get github.com/Kilat-Pet-Delivery/lib-common
+go get github.com/niaga-labs/niaga-labs-pet-lib-common
 ```
 
 ## Requirements

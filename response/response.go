@@ -4,8 +4,8 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/Kilat-Pet-Delivery/lib-common/domain"
 	"github.com/gin-gonic/gin"
+	"github.com/niaga-labs/niaga-labs-pet-lib-common/domain"
 )
 
 // Success sends a 200 OK response with data.
