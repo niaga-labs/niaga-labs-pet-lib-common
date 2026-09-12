@@ -1,0 +1,16 @@
+# lib-common calls its own reusable workflow by relative path, so a change to
+# go-ci.yml is exercised by the very PR that makes it. Other repos reference it
+# as niaga-labs/niaga-labs-pet-lib-common/.github/workflows/go-ci.yml@main. See KPD-53.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  go:
+    uses: ./.github/workflows/go-ci.yml
+    with:
+      needs-lib-common: false
+      needs-lib-proto: false

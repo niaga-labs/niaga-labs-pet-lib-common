@@ -1,0 +1,90 @@
+# Reusable Go CI for every Kilat Pet Delivery service. Called from each repo's
+# .github/workflows/ci.yml -- see KPD-53.
+#
+# The one thing that makes this non-obvious: every service's go.mod replaces
+# lib-common and lib-proto with ../lib-common and ../lib-proto. A plain checkout
+# gives CI only the service, so `go build` cannot resolve those modules. This
+# workflow therefore checks the service out into ./repo and the libraries beside
+# it, reproducing the sibling layout the replace directives expect.
+name: Go CI
+
+on:
+  workflow_call:
+    inputs:
+      needs-lib-common:
+        description: "Check out lib-common as a sibling (true for anything whose go.mod replaces it)"
+        type: boolean
+        default: true
+      needs-lib-proto:
+        description: "Check out lib-proto as a sibling"
+        type: boolean
+        default: true
+      libs-ref:
+        description: "Ref to take the sibling libraries from"
+        type: string
+        default: main
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: gofmt · vet · build · test
+    runs-on: ubuntu-latest
+    steps:
+      # Fixed path rather than the repo name: the replace directives only care
+      # that the libraries are siblings of the module directory, not what it is
+      # called, and a literal keeps this readable.
+      - name: Check out this repository
+        uses: actions/checkout@v4
+        with:
+          path: repo
+
+      - name: Check out lib-common as a sibling
+        if: ${{ inputs.needs-lib-common }}
+        uses: actions/checkout@v4
+        with:
+          repository: niaga-labs/niaga-labs-pet-lib-common
+          ref: ${{ inputs.libs-ref }}
+          path: lib-common
+
+      - name: Check out lib-proto as a sibling
+        if: ${{ inputs.needs-lib-proto }}
+        uses: actions/checkout@v4
+        with:
+          repository: niaga-labs/niaga-labs-pet-lib-proto
+          ref: ${{ inputs.libs-ref }}
+          path: lib-proto
+
+      # go-version-file keeps each repo on the version its own go.mod asks for --
+      # service-shop is on 1.25 while the rest are on 1.24.
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: repo/go.mod
+          cache-dependency-path: repo/go.sum
+
+      - name: gofmt
+        working-directory: repo
+        run: |
+          unformatted=$(gofmt -l .)
+          if [ -n "$unformatted" ]; then
+            echo "::error::These files are not gofmt-clean. Run: gofmt -w ."
+            echo "$unformatted"
+            exit 1
+          fi
+          echo "gofmt clean"
+
+      - name: go vet
+        working-directory: repo
+        run: go vet ./...
+
+      - name: go build
+        working-directory: repo
+        run: go build ./...
+
+      # Default suite only. Anything behind the `integration` build tag needs
+      # Docker and testcontainers and is deliberately not run here -- see KPD-62.
+      - name: go test
+        working-directory: repo
+        run: go test ./...
