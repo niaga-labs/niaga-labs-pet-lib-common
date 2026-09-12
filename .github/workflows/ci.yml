@@ -1,6 +1,6 @@
 # lib-common calls its own reusable workflow by relative path, so a change to
 # go-ci.yml is exercised by the very PR that makes it. Other repos reference it
-# as Kilat-Pet-Delivery/lib-common/.github/workflows/go-ci.yml@main. See KPD-53.
+# as niaga-labs/niaga-labs-pet-lib-common/.github/workflows/go-ci.yml@main. See KPD-53.
 name: CI
 
 on:

@@ -44,7 +44,7 @@ jobs:
         if: ${{ inputs.needs-lib-common }}
         uses: actions/checkout@v4
         with:
-          repository: Kilat-Pet-Delivery/lib-common
+          repository: niaga-labs/niaga-labs-pet-lib-common
           ref: ${{ inputs.libs-ref }}
           path: lib-common
 
@@ -52,7 +52,7 @@ jobs:
         if: ${{ inputs.needs-lib-proto }}
         uses: actions/checkout@v4
         with:
-          repository: Kilat-Pet-Delivery/lib-proto
+          repository: niaga-labs/niaga-labs-pet-lib-proto
           ref: ${{ inputs.libs-ref }}
           path: lib-proto
 
